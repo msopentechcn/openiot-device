@@ -24,11 +24,16 @@
 
 namespace Microsoft.OpenIoT
 {
-    public static class Constants
-    {
+    using Microsoft.OpenIoT.Common;
 
-        public const int ConcurrentConnections = 4;
-        public const int MessagesLoggingThreshold = 10000;
-        public const string PayloadKey = "palyload";
+    //--//
+
+    public interface IMessageReceiver<T>
+    {
+        void Open(string clientId);
+
+        void Start();
+
+        void Close();
     }
 }

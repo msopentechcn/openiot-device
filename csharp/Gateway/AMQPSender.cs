@@ -149,7 +149,7 @@ namespace Microsoft.OpenIoT
 
             protected void OnSenderClosedCallback( AmqpObject sender, Error error )
             {
-                _Logger.LogError( "OnSenderClosedCallback: " + error.Info + error.Description );
+                //_Logger.LogError( "OnSenderClosedCallback: " + error.Info + error.Description );
                 // signal the connection will fail 
                 SetDead( );
 
@@ -231,7 +231,7 @@ namespace Microsoft.OpenIoT
 
         //--//
 
-        private          SendersPool    _senders;
+        private SendersPool _senders;
 
         public ILogger Logger
         {

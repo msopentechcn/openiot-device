@@ -1,4 +1,6 @@
-﻿using Microsoft.OpenIoT.Common;
+﻿using Amqp;
+using Amqp.Framing;
+using Microsoft.OpenIoT.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,11 +14,14 @@ namespace Microsoft.OpenIoT
     {
 
         AMQPSender<string> _sender;
+        static string PAYLOAD_KEY = "payload";
+        //AMQPReceiver<string> _receiver;
 
-        public Gateway(string amqpsAddress, string eventHubName)
+        public Gateway(string amqpsAddress, string entityPath)
         {
-            _sender = new AMQPSender<string>(amqpsAddress, eventHubName);
+            _sender = new AMQPSender<string>(amqpsAddress, entityPath);
         }
+
 
         public void Register(string hardwareId, string specificationToken)
         {
@@ -47,21 +52,6 @@ namespace Microsoft.OpenIoT
         public void Close()
         {
             this._sender.Close();
-        }
-
-        public static void Main(String[] args){
-            string amqpsAddress = "amqps://yourSasName:yourSasKey@yourNamespace.servicebus.chinacloudapi.cn";
-            string eventHubName = "yourEventHubName";
-
-            Gateway gateway = new Gateway(amqpsAddress, eventHubName);
-
-            //gateway.Register("test-id-csharp2", "d2604433-e4eb-419b-97c7-88efe9b2cd41");
-            //gateway.Alert("test-id-csharp2", "keepalive","csharp client is alive!");
-            //gateway.Measurement("test-id-csharp2", "cpu.utils", 23.5);
-            gateway.Location("test-id-csharp2", 176.223223f, 54.234323f, 1.0012323f);
-            gateway.Close();
-            
-
         }
 
     }
