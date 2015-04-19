@@ -5,7 +5,6 @@ Installation Guide:
 2. Install openiot-agent
  
 #opkg install openiot-agent_1.0-1_ramips_24kec.ipk
--- ingore postinstall script error
 
 3. Config initd to start openiot-agent at system startup
 
