@@ -31,7 +31,7 @@ Maintainence Guide:
 #/etc/init.d/openiot-agent restart
 
 * Agent related files
-- /etc/init.d/openiot-agent: init file
-- /usr/lib/qpid*.so.*: ampq protocol client
-- /usr/bin/openiot-agent.bin: agent executable
-- /usr/bin/openiot-agent.sh: agent script to call the agent executable
+- /etc/init.d/openiot-agent: init file.
+- /usr/lib/qpid*.so.*: qpid-proton-c messenger client, support amqp protocol.
+- /usr/bin/openiot-agent.bin: agent executable.
+- /usr/bin/openiot-agent.sh: agent script to call the agent executable.
