@@ -13,6 +13,8 @@ namespace Microsoft.OpenIoT
 
         /////////////////  Below information should be customized  /////////////////
 
+        /**
+        
         private static string uniqueClientId = "[YourUniqueClientId]";
 
         private static string receiveAmqpsAddress = "amqps://[sasName]:[sasKey]@[namespace].servicebus.chinacloudapi.cn";
@@ -25,6 +27,22 @@ namespace Microsoft.OpenIoT
         private static string deviceId = "[YourDeviceId]]";
         // Unique device specification ID, assigned by server admin
         private static string specificationId = "[YourSpecificationId]]";
+
+        **/
+
+        private static string uniqueClientId = "/system/Subscriptions/s000001";
+
+        private static string receiveAmqpsAddress = "amqps://iot:vUG53u3%2BDamdR0YLHqU5kb0h%2BpFZa4NFBqusqpf%2F4vc%3D@iot-demo-ns.servicebus.chinacloudapi.cn";
+        private static string receiveEntityPath = "/system/Subscriptions/test-2";
+
+        private static string sendAmqpsAddress = "amqps://iot:ov3Sycoo%2F2ZfU3mNL3gZVPBpishymqGb01SK5hD%2BpWI%3D@iot-ns.servicebus.chinacloudapi.cn";
+        private static string sendEntityPath = "/dev";
+
+        // Unique device id, eg. Mac address or UUID
+        private static string deviceId = "demo-healthcare-id-1";
+        // Unique device specification ID, assigned by server admin
+        private static string specificationId = "eca02bb6-a794-4d9a-a669-5a02c43ff21d";
+
 
         ////////////////////// End of customized information //////////////////////
 
@@ -76,7 +94,8 @@ namespace Microsoft.OpenIoT
 
         public static void Main(String[] args)
         {
-            testReceiver();   
+            testSenderAPI("info","hello");
+            //testReceiver();   
         }
     }
 }

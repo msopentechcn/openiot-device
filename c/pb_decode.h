@@ -2,10 +2,7 @@
  * The main function is pb_decode. You also need an input stream, and the
  * field descriptions created by nanopb_generator.py.
  */
-#include "stdio.h"
-#include "stdlib.h"
-#include "string.h"
-#include "ctype.h"
+
 #ifndef _PB_DECODE_H_
 #define _PB_DECODE_H_
 

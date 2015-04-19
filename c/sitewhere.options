@@ -17,6 +17,9 @@ SiteWhere.Acknowledge.message 						max_size:70
 
 # Max lengths for DeviceLocation.
 SiteWhere.DeviceLocation.hardwareId 				max_size:40
+SiteWhere.DeviceLocation.latitude					max_size:10	
+SiteWhere.DeviceLocation.longitude					max_size:10
+SiteWhere.DeviceLocation.elevation					max_size:10
 
 # Max lengths for DeviceAlert.
 SiteWhere.DeviceAlert.hardwareId 					max_size:40
@@ -25,6 +28,7 @@ SiteWhere.DeviceAlert.alertMessage 					max_size:70
 
 # Max lengths for Measurement.
 SiteWhere.Measurement.measurementId					max_size:30
+SiteWhere.Measurement.measurementValue					max_size:16
 
 # Max lengths for DeviceMeasurements.
 SiteWhere.DeviceMeasurements.hardwareId 			max_size:40

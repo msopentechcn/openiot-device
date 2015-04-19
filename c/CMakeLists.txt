@@ -19,13 +19,13 @@
 
 find_package(Proton REQUIRED)
 
-add_executable(recv recv.c)
-add_executable(send send.c)
-add_executable(agent agent.c sitewhere.c sitewhere.pb.c pb_encode.c pb_decode.c double_conversion.c)
+#add_executable(recv recv.c)
+#add_executable(send send.c)
+add_executable(openiot-agent.bin openiot-agent.c sitewhere.c sitewhere.pb.c pb_encode.c pb_decode.c double_conversion.c)
 
 include_directories(${Proton_INCLUDE_DIRS})
 include_directories(.)
 
-target_link_libraries(recv ${Proton_LIBRARIES})
-target_link_libraries(send ${Proton_LIBRARIES})
-target_link_libraries(agent ${Proton_LIBRARIES})
+#target_link_libraries(recv ${Proton_LIBRARIES})
+#target_link_libraries(send ${Proton_LIBRARIES})
+target_link_libraries(openiot-agent.bin ${Proton_LIBRARIES})

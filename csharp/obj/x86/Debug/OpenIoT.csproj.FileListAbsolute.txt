@@ -1,0 +1,12 @@
+D:\projects\open-iot-device\csharp\bin\Debug\ConsoleApplication.exe.config
+D:\projects\open-iot-device\csharp\bin\Debug\ConsoleApplication.exe
+D:\projects\open-iot-device\csharp\bin\Debug\ConsoleApplication.pdb
+D:\projects\open-iot-device\csharp\bin\Debug\Amqp.Net.dll
+D:\projects\open-iot-device\csharp\bin\Debug\Google.ProtocolBuffers.dll
+D:\projects\open-iot-device\csharp\bin\Debug\Google.ProtocolBuffers.Serialization.dll
+D:\projects\open-iot-device\csharp\bin\Debug\Amqp.Net.pdb
+D:\projects\open-iot-device\csharp\bin\Debug\Google.ProtocolBuffers.xml
+D:\projects\open-iot-device\csharp\bin\Debug\Google.ProtocolBuffers.Serialization.xml
+D:\projects\open-iot-device\csharp\obj\x86\Debug\OpenIoT.csprojResolveAssemblyReference.cache
+D:\projects\open-iot-device\csharp\obj\x86\Debug\ConsoleApplication.exe
+D:\projects\open-iot-device\csharp\obj\x86\Debug\ConsoleApplication.pdb

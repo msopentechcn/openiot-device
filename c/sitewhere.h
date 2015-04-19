@@ -26,7 +26,7 @@ unsigned int sw_register(char* hardwareId, char* specificationToken, uint8_t* bu
 unsigned int sw_acknowledge(char* hardwareId, char* message, uint8_t* buffer, size_t length, char* originator);
 
 /** Create an encoded measurement message for sending to SiteWhere */
-unsigned int sw_measurement(char* hardwareId, char* name, float value, int64_t eventDate,
+unsigned int sw_measurement(char* hardwareId, char* name, char* value, int64_t eventDate,
 		uint8_t* buffer, size_t length, char* originator);
 
 /** Support for multiple measurement metrics */
@@ -34,7 +34,7 @@ unsigned int sw_measurement_multi(char* hardwareId, char** measurementTokens, in
 		uint8_t* buffer, size_t length, char* originator); 
 
 /** Create an encoded location message for sending to SiteWhere */
-unsigned int sw_location(char* hardwareId, float lat, float lon, float elevation, int64_t eventDate,
+unsigned int sw_location(char* hardwareId, char* lat, char* lon, char* elevation, int64_t eventDate,
 		uint8_t* buffer, size_t length, char* originator);
 
 /** Create an encoded alert message for sending to SiteWhere */
