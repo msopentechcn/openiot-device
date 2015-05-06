@@ -58,6 +58,7 @@ char* specificationToken = "";
 char* outboundAddress = "";
 
 static const char * payloadkey = (char *) "payload";
+static const int sendTimeout = 2000;
 
 /** Message buffer */
 uint8_t buffer[300];
@@ -91,6 +92,7 @@ void send_message(char * address, char * payload, int len) {
   pn_messenger_put(messenger, message);
   
   check(messenger);
+  pn_messenger_set_timeout(messenger, sendTimeout);
   pn_messenger_send(messenger, -1);
   check(messenger);
 
