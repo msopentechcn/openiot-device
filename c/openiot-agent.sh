@@ -18,8 +18,8 @@ echo "CpuModel:        "$CpuModel
 echo "SystemType:      "$SystemType   
 echo "Machine:         "$Machine
  
-Outbound='amqps://device:c1e4WYT3wiUBYaZmDMsWy9GgcodEkyhmlOh4VI7MRq8%3D@iot-production-north.servicebus.chinacloudapi.cn/listen2me'
-SpecId='2ea58f27-49c6-4754-8280-c7916a8636da'
+Outbound='amqps://{SAS_KEY}:{SAS_TOKEN}@{NAMESPACE}.servicebus.chinacloudapi.cn/{ENTITY_PATH}'
+SpecId='{SPEC_ID}'
 HardwareId=$Macaddr
 
 /usr/bin/openiot-agent.bin -o $Outbound -i $HardwareId  -s $SpecId -r

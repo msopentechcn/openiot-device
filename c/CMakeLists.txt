@@ -17,15 +17,15 @@
 # under the License.
 #
 
+cmake_minimum_required (VERSION 2.6)
+project (OpenIoT)
+
+set (Proton_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 find_package(Proton REQUIRED)
 
-#add_executable(recv recv.c)
-#add_executable(send send.c)
-add_executable(openiot-agent.bin openiot-agent.c sitewhere.c sitewhere.pb.c pb_encode.c pb_decode.c double_conversion.c)
+include_directories (${Proton_INCLUDE_DIRS})
+include_directories (.)
+add_executable(openiot-agent.bin openiot-agent.c amqp.c openiot-encode.c openiot.pb.c pb_encode.c pb_decode.c double_conversion.c)
 
-include_directories(${Proton_INCLUDE_DIRS})
-include_directories(.)
-
-#target_link_libraries(recv ${Proton_LIBRARIES})
-#target_link_libraries(send ${Proton_LIBRARIES})
+link_directories(/usr/lib)
 target_link_libraries(openiot-agent.bin ${Proton_LIBRARIES})

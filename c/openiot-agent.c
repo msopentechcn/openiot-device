@@ -1,12 +1,10 @@
 #include "pb.h"
 #include "pb_decode.h"
 #include "pb_encode.h"
-#include "sitewhere.h"
-#include "sitewhere.pb.h"
-
-#include "proton/message.h"
-#include "proton/messenger.h"
-#include "pncompat/misc_funcs.inc"
+#include "openiot-encode.h"
+#include "openiot.pb.h"
+#include "protocol.h"
+#include "support/misc_funcs.inc"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -22,13 +20,6 @@
 #define MODE_ALERT 3
 #define MODE_LOCATION 4
 
-#define check(messenger)                                                     \
-  {                                                                          \
-    if(pn_messenger_errno(messenger))                                        \
-    {                                                                        \
-      die(__FILE__, __LINE__, pn_error_text(pn_messenger_error(messenger))); \
-    }                                                                        \
-  }                                                                          \
 
 void die(const char *file, int line, const char *message)
 {
@@ -39,7 +30,7 @@ void die(const char *file, int line, const char *message)
 void usage(void)
 {
   printf("Usage: agent [-o addr] [message] -i [hardwareId] -s [specToken] -r|m|a|i [mode]\n");
-  printf("-o     \tThe target address [amqp[s]://domain[/name]]\n");
+  printf("-o     \tThe target address [amqp[s]/mqtt://domain[/name]]\n");
   printf("-i     \thardwhereId to uniquely identify this device\n");
   printf("-s     \tspecificationToken assigned by device onboarding server\n");
   printf("-r     \tregistration mode, no argument needed\n");
@@ -54,11 +45,9 @@ void usage(void)
 char* hardwareId = "";
 /** Device specification token for hardware configuration */
 char* specificationToken = "";
-/** Outbound AMQP url*/
+/** Outbound url*/
 char* outboundAddress = "";
 
-static const char * payloadkey = (char *) "payload";
-static const int sendTimeout = 2000;
 
 /** Message buffer */
 uint8_t buffer[300];
@@ -69,38 +58,6 @@ bool registered = true;
 /** Timestamp for last event */
 struct timeval lastEvent;
 struct timeval now;
-
-/** Send message to AMQP broker */
-void send_message(char * address, char * payload, int len) {
-
-  pn_messenger_t * messenger = pn_messenger(NULL);
-  pn_messenger_start(messenger);  
-
-  pn_message_t * message = pn_message();
-  pn_message_set_address(message, address);
-
-  pn_data_t * data = pn_message_properties(message);
-  pn_data_put_map(data);
-  pn_data_enter(data);
-  pn_data_put_string(data, pn_bytes(strlen(payloadkey), payloadkey));
-  pn_data_put_string(data, pn_bytes(len, payload));
-  pn_data_exit(data);
-
-  // pn_data_t * body = pn_message_body(message);
-  // pn_data_put_string(body, pn_bytes(strlen(payload), payload));
-  
-  pn_messenger_put(messenger, message);
-  
-  check(messenger);
-  pn_messenger_set_timeout(messenger, sendTimeout);
-  pn_messenger_send(messenger, -1);
-  check(messenger);
-
-  pn_messenger_stop(messenger);
-  pn_messenger_free(messenger);
-  pn_message_free(message);
-  
-}
 
 char** str_split(char* a_str, const char a_delim)
 {
@@ -198,7 +155,7 @@ int main(int argc, char** argv) {
   switch(mode)
   {
     case MODE_REGISTER:      
-      if (len = sw_register(hardwareId, specificationToken, buffer, sizeof(buffer), NULL)) {
+      if (len = openiot_register(hardwareId, specificationToken, buffer, sizeof(buffer), NULL)) {
         send_message(outboundAddress, buffer, len);
         printf("R");
       } else {
@@ -208,7 +165,7 @@ int main(int argc, char** argv) {
       break;
       
     case MODE_MEASUREMENT:
-      if (len = sw_measurement_multi(hardwareId, str_split(measurementString, ','), 0, buffer, sizeof(buffer), NULL)) {
+      if (len = openiot_measurement_multi(hardwareId, str_split(measurementString, ','), 0, buffer, sizeof(buffer), NULL)) {
         send_message(outboundAddress, buffer, len);
         printf(".");
       } else {
@@ -219,7 +176,7 @@ int main(int argc, char** argv) {
       break;
       
     case MODE_ALERT:      
-      if (len = sw_alert(hardwareId, strtok(alertString, ":"), strtok(NULL, ":"), 0, buffer, sizeof(buffer), NULL)) {
+      if (len = openiot_alert(hardwareId, strtok(alertString, ":"), strtok(NULL, ":"), 0, buffer, sizeof(buffer), NULL)) {
         send_message(outboundAddress, buffer, len);
         printf("!");
       } else {
@@ -229,7 +186,7 @@ int main(int argc, char** argv) {
       break;
       
     case MODE_LOCATION:
-      if (len = sw_location(hardwareId, strtok(locationString, ":"), strtok(NULL, ":"), strtok(NULL, ":"), 0, buffer, sizeof(buffer), NULL)) {
+      if (len = openiot_location(hardwareId, strtok(locationString, ":"), strtok(NULL, ":"), strtok(NULL, ":"), 0, buffer, sizeof(buffer), NULL)) {
         send_message(outboundAddress, buffer, len);
         printf("+");
       } else {

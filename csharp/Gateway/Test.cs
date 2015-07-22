@@ -55,7 +55,7 @@ namespace Microsoft.OpenIoT
             r.Start();
         }
 
-        public static void testSenderAPI(string alertLevel, string alertMessage)
+        public static void testRegisterAPI(string deviceId, string specificationId)
         {
             string amqpsAddress = sendAmqpsAddress;
             string entityPath = sendEntityPath;
@@ -63,9 +63,50 @@ namespace Microsoft.OpenIoT
             Gateway gateway = new Gateway(amqpsAddress, entityPath);
 
             gateway.Register(deviceId, specificationId);
+            //gateway.Alert(deviceId, alertLevel, alertMessage);
+            //gateway.Measurement(deviceId, "cpu.utils", 23.5);
+            //gateway.Location(deviceId, 176.223223f, 54.234323f, 1.0012323f);
+
+            gateway.Close();
+
+        }
+
+        public static void testAlertAPI(string deviceId, string alertLevel, string alertMessage)
+        {
+            string amqpsAddress = sendAmqpsAddress;
+            string entityPath = sendEntityPath;
+
+            Gateway gateway = new Gateway(amqpsAddress, entityPath);
+
             gateway.Alert(deviceId, alertLevel, alertMessage);
             //gateway.Measurement(deviceId, "cpu.utils", 23.5);
             //gateway.Location(deviceId, 176.223223f, 54.234323f, 1.0012323f);
+
+            gateway.Close();
+
+        }
+
+        public static void testMeasurementAPI(string deviceId, string measurementId, double value)
+        {
+            string amqpsAddress = sendAmqpsAddress;
+            string entityPath = sendEntityPath;
+
+            Gateway gateway = new Gateway(amqpsAddress, entityPath);
+
+            gateway.Measurement(deviceId, measurementId, value);
+
+            gateway.Close();
+
+        }
+
+        public static void testLocationAPI(string deviceId, double longtitude, double latitude, double elevation)
+        {
+            string amqpsAddress = sendAmqpsAddress;
+            string entityPath = sendEntityPath;
+
+            Gateway gateway = new Gateway(amqpsAddress, entityPath);
+
+            gateway.Location(deviceId, longtitude, latitude, elevation);
 
             gateway.Close();
 
@@ -94,8 +135,8 @@ namespace Microsoft.OpenIoT
 
         public static void Main(String[] args)
         {
-            testSenderAPI("info","hello");
-            //testReceiver();   
+            //testSenderAPI("info","hello");
+            testReceiver();   
         }
     }
 }

@@ -1,1 +1,1 @@
-# open-iot-device
+# openiot-device
