@@ -13,8 +13,7 @@ typedef union {
  * Double precision: sign, 11-bit exp, 52-bit frac.
  */
 
-uint64_t float_to_double(float value)
-{
+uint64_t float_to_double(float value) {
     conversion_t in;
     in.f = value;
     uint8_t sign;
@@ -26,24 +25,19 @@ uint64_t float_to_double(float value)
     exponent = ((in.i >> 23) & 0xFF) - 127;
     mantissa = in.i & 0x7FFFFF;
 
-    if (exponent == 128)
-    {
+    if (exponent == 128) {
         /* Special value (NaN etc.) */
         exponent = 1024;
     }
-    else if (exponent == -127)
-    {
-        if (!mantissa)
-        {
+    else if (exponent == -127) {
+        if (!mantissa) {
             /* Zero */
             exponent = -1023;
         }
-        else
-        {
+        else {
             /* Denormalized */
             mantissa <<= 1;
-            while (!(mantissa & 0x800000))
-            {
+            while (!(mantissa & 0x800000)) {
                 mantissa <<= 1;
                 exponent--;
             }
@@ -53,14 +47,13 @@ uint64_t float_to_double(float value)
 
     /* Combine fields */
     mantissa <<= 29;
-    mantissa |= (uint64_t)(exponent + 1023) << 52;
-    mantissa |= (uint64_t)sign << 63;
+    mantissa |= (uint64_t) (exponent + 1023) << 52;
+    mantissa |= (uint64_t) sign << 63;
 
     return mantissa;
 }
 
-float double_to_float(uint64_t value)
-{
+float double_to_float(uint64_t value) {
     uint8_t sign;
     int16_t exponent;
     uint32_t mantissa;
@@ -72,29 +65,25 @@ float double_to_float(uint64_t value)
     mantissa = (value >> 28) & 0xFFFFFF; /* Highest 24 bits */
 
     /* Figure if value is in range representable by floats. */
-    if (exponent == 1024)
-    {
+    if (exponent == 1024) {
         /* Special value */
         exponent = 128;
     }
-    else if (exponent > 127)
-    {
+    else if (exponent > 127) {
         /* Too large */
         if (sign)
             return -INFINITY;
         else
             return INFINITY;
     }
-    else if (exponent < -150)
-    {
+    else if (exponent < -150) {
         /* Too small */
         if (sign)
             return -0.0f;
         else
             return 0.0f;
     }
-    else if (exponent < -126)
-    {
+    else if (exponent < -126) {
         /* Denormalized */
         mantissa |= 0x1000000;
         mantissa >>= (-126 - exponent);
@@ -105,8 +94,7 @@ float double_to_float(uint64_t value)
     mantissa = (mantissa + 1) >> 1;
 
     /* Check if mantissa went over 2.0 */
-    if (mantissa & 0x800000)
-    {
+    if (mantissa & 0x800000) {
         exponent += 1;
         mantissa &= 0x7FFFFF;
         mantissa >>= 1;
@@ -114,8 +102,8 @@ float double_to_float(uint64_t value)
 
     /* Combine fields */
     out.i = mantissa;
-    out.i |= (uint32_t)(exponent + 127) << 23;
-    out.i |= (uint32_t)sign << 31;
+    out.i |= (uint32_t) (exponent + 127) << 23;
+    out.i |= (uint32_t) sign << 31;
 
     return out.f;
 }

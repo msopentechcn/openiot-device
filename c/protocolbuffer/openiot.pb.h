@@ -3,7 +3,8 @@
 
 #ifndef _PB_OPENIOT_PB_H_
 #define _PB_OPENIOT_PB_H_
-#include <pb.h>
+
+#include "pb.h"
 
 #ifdef __cplusplus
 extern "C" {

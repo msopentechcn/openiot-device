@@ -14,9 +14,9 @@ $cd build
 $cmake ..
 $make V=s
 
-Test openiot-agent.bin:
-$openiot-agent.bin -h
+Test openiot-agent command line interface:
+$openiot-agent-cli -h
 
 Sample shell:
 openiot-agent: autostart script
-openiot-agent.sh: sample shell to call openiot-agent.bin
+openiot-agent.sh: sample shell to call openiot-agent-cli

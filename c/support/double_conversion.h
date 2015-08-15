@@ -10,6 +10,7 @@
 #include "stdlib.h"
 #include "string.h"
 #include "ctype.h"
+
 #ifndef DOUBLE_CONVERSION
 #define DOUBLE_CONVERSION
 

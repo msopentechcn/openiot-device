@@ -25,7 +25,14 @@ find_package(Proton REQUIRED)
 
 include_directories (${Proton_INCLUDE_DIRS})
 include_directories (.)
-add_executable(openiot-agent.bin openiot-agent.c amqp.c openiot-encode.c openiot.pb.c pb_encode.c pb_decode.c double_conversion.c)
+add_executable(openiot-agent-cli
+openiot-agent-cli.c
+amqp/amqp.c
+protocolbuffer/openiot-encode.c
+protocolbuffer/openiot.pb.c
+protocolbuffer/pb_encode.c
+protocolbuffer/pb_decode.c
+support/double_conversion.c)
 
-link_directories(/usr/lib)
-target_link_libraries(openiot-agent.bin ${Proton_LIBRARIES})
+link_directories(/usr/local/lib)
+target_link_libraries(openiot-agent-cli ${Proton_LIBRARIES})
