@@ -1,5 +1,6 @@
 #include "openiot-encode.h"
 #include "openiot-protocol.h"
+#include "support/misc_funcs.inc"
 
 #include <assert.h>
 
@@ -35,7 +36,7 @@ char *outboundAddress = "";
 uint8_t buffer[300];
 
 /** Keeps up with whether we have registered */
-bool registered = true;
+//bool registered = true;
 
 /** Timestamp for last event */
 struct timeval lastEvent;

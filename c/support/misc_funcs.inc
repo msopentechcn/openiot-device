@@ -36,6 +36,8 @@
  *
  */
 
+#include "misc_defs.h"
+
 #if defined(_WIN32) && !defined(__CYGWIN__)
 #include "getopt.c"
 #endif
@@ -53,6 +55,11 @@ pn_timestamp_t time_now(void)
   return t.QuadPart / 10000 - 11644473600000;
 }
 #else
+
+#include <sys/time.h>
+#include <stddef.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 pn_timestamp_t time_now(void) {
     struct timeval now;
